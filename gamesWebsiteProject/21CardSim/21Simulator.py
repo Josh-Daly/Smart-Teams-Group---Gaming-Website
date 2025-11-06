@@ -29,12 +29,12 @@ while True:
         clear()
         print("Game Setup Here")
         random.shuffle(fullDeck)
-        print(" ___ ______")
-        print("|   |      |")
-        print("|" + fullDeck[0] + "| " + fullDeck[1] + "  |")
-        print("|   |      |")
-        print("|   |      |")
-        print("|___|______|")
+        print(" ______ ________")
+        print("|" + fullDeck[0] + "   |" + fullDeck[1] + "     |")
+        print("|      |        |")
+        print("|      |        |")
+        print("|      |        |")
+        print("|______|________|")
         time.sleep(10)
 
     if(state==9): #Program end
