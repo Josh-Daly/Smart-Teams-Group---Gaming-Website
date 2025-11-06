@@ -166,6 +166,8 @@ while True:
         print("               |   |        |")
         print("               |___|________|")
         time.sleep(2)
+
+        #If loop for Ace and ten/jack/queen/king for instant win (dealer reveals, if both 21, tie, if not, players wins)
         choice = input("Hit or Stand? (h/s) > ")
 
 
