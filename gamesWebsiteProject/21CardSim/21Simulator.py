@@ -5,8 +5,61 @@ clear = lambda: os.system('cls') #Creates obj for clearing serial screen
 
 #Variables
 state = 0 #Controls what part of game is active, 0 - Title, 1 - Setup, 2 - Start, MORE TO BE ADDED, 9 - End
+aceState = 0 #If more than 1, score can be plus 1 or plus 11, whichever benefits player more, each i in this var is how many aces
+PlayerVictoryState = 0 #Victory variable for player, calculated and used to control outcome of game, 0 = Game in progress, 1 = Victory, 2 = Game over
+DealerVictoryState = 0 #Victory var for dealer, same as player, compared with player after
 #Could make PC1-5 and DC1-5 their own objects, adding to hand when hitting and replace with real cards when revealing
 
+#Functions
+def cardScoreChecker(array, indexVar): #Adds up card values, sets up state for ace cards #Finished (for now)
+    sum = 0
+    aceState = 0
+    for i in range(indexVar):
+        if(array[i][0] == " A"):
+            aceState += 1
+        elif(array[i][0] == " J"):
+            sum += 10
+        elif(array[i][0] == " Q"):
+            sum += 10
+        elif(array[i][0] == " K"):
+            sum += 10
+        else:
+            sum += int(array[i][0])
+    if(aceState > 0):
+        if(aceState == 1):
+            if((sum+11) > 21): #If adding 11 would push the player past 21
+                sum += 1
+            else:
+                sum += 11
+        elif(aceState == 2):
+            sum += 1
+            if((sum+11) > 21):
+                sum += 1
+            else:
+                sum += 11
+        elif(aceState == 3):
+            sum = 13
+    return sum
+
+def victoryStateSetter(cardScoreVar): #Sets victory state variable according to 
+    victoryVar = 0
+    if(cardScoreVar > 21):
+        victoryVar = 2
+    elif(cardScoreVar == 21):
+        victoryVar = 1
+    elif(cardScoreVar < 21):
+        victoryVar = 0
+    return victoryVar
+
+#def scoreComparer():
+
+def victoryChecker(playerVictorVar, dealerVictorVar):
+
+    pass
+
+
+
+#Main Game Code
 while True:
     if(state==0): #Title
         
@@ -221,7 +274,7 @@ while True:
             print("               |   |   |        |")
             print("               |" + playersHand[0][0] + playersHand[0][1] + "|" + playersHand[1][0] + playersHand[1][1] + "|" + playersHand[2][0] + playersHand[2][1] + "     |")
             print("               |   |   |        |")
-            print("               |   |   |        |")
+            print("               |   |   |        |") 
             print("               |___|___|________|")
             time.sleep(2)
 
