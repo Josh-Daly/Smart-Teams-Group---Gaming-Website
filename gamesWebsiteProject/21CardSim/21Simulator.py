@@ -41,6 +41,19 @@ def cardScoreChecker(array, indexVar): #Adds up card values, sets up state for a
             sum = 13
     return sum
 
+def playerBustChecker(playerScoreVar):
+    if(playerScoreVar > 21):
+        print("Player has busted!")
+        print("Player Card Value: " + playerScoreVar)
+        print("ADD CHOICE STATEMENT AND IFS")
+
+def dealerBustChecker(dealerScoreVar):
+    if(dealerScoreVar > 21):
+        print("Dealer has busted!")
+        print("Player wins!")
+        print("ADD CHOICE STATEMENT AND IFS")
+        
+
 def victoryStateSetter(playerScoreVar, dealerScoreVar): #Sets victory state variable according to 
     victoryVar = 0
     if (playerScoreVar > dealerScoreVar and playerScore <= 21):
@@ -48,15 +61,29 @@ def victoryStateSetter(playerScoreVar, dealerScoreVar): #Sets victory state vari
     elif (playerScoreVar == dealerScoreVar):
         victoryVar = 2 #Tie
     elif (playerScoreVar < dealerScoreVar):
-        victoryVar = 3
+        victoryVar = 3 #Loss
 
+    if (victoryVar == 1):
+        print("Player has won!")
+        print("Player Card Value: " + str(playerScoreVar) + " Dealer Card Value: " + str(dealerScoreVar))
+    elif (victoryVar == 2):
+        print("Player has tied.")
+        print("Player Card Value: " + str(playerScoreVar) + " Dealer Card Value: " + str(dealerScoreVar))
+    elif (victoryVar == 3):
+        print("Player has lost.")
+        print("Player Card Value: " + str(playerScoreVar) + " Dealer Card Value: " + str(dealerScoreVar))
     
-
-#def scoreComparer():
-
-#def victoryChecker(playerVictorVar, dealerVictorVar):
-
-
+    if(victoryVar == 1 or victoryVar == 2 or victoryVar == 3):
+        time.sleep(3)
+        choice = input("Play again? (y/n)")
+        time.sleep(1)
+        if(choice=="y" or choice=="Y"):
+            pass   
+        elif(choice=="n" or choice=="N"):
+            print("Game ended.")
+            print("Thanks for playing!")
+            quit()
+    
 
 #Main Game Code
 while (game == True):
@@ -65,11 +92,14 @@ while (game == True):
         clear()
         print("TItle Screen")
         choice = input("Play? (y/n) > ")
-        if(choice=="y"):
+        if(choice=="y" or choice=="Y"):
             state = 1
             
-        elif(choice=="n"):
-            state = 9
+        elif(choice=="n" or choice=="N"):
+            clear()
+            print("Game ended.")
+            print("Thanks for playing!")
+            quit()
 
     while(state==1): #Setup
         #Card Array
@@ -98,10 +128,10 @@ while (game == True):
         print("Player loses if they go over 21 or if dealer gets more.")
         print("Dealer and player can have a max of 3 cards.")
         time.sleep(4)
-        print(fullDeck)
-        print(" //// TEST PRINTS FOR ARRAYS //// ")
-        time.sleep(1)
-        choice = input("Ready? (y) > ")
+        #print(fullDeck)
+        #print(" //// TEST PRINTS FOR ARRAYS //// ")
+        #time.sleep(1)
+        choice = input("Ready? (Press enter to continue) > ")
         state=2
 
     while(state==2): #Game
@@ -143,10 +173,10 @@ while (game == True):
         print("               |________|")
         time.sleep(2)
         # TEST PASSAGE
-        playerScore = cardScoreChecker(playersHand,1)
-        print("TEST PRINT: Player Score is " + str(playerScore))
-        print("END TEST PRINT")
-        time.sleep(5)
+        #playerScore = cardScoreChecker(playersHand,1)
+        #print("TEST PRINT: Player Score is " + str(playerScore))
+        #print("END TEST PRINT")
+        #time.sleep(5)
 
         # /// DEALER 1ST CARD ///
         #Dealer gets 1st card, hidden
@@ -185,6 +215,13 @@ while (game == True):
         print("               |        |")
         print("               |________|")
         time.sleep(2)
+        # TEST PASSAGE
+        #playerScore = cardScoreChecker(playersHand,1)
+        #print("TEST PRINT: Player Score is " + str(playerScore))
+        #dealerScore = cardScoreChecker(dealersHand,1)
+        #print("TEST PRINT: Dealer Score is " + str(dealerScore))
+        #print("END TEST PRINT")
+        #time.sleep(5)
 
         # /// PLAYER 2ND CARD ///
         clear()
@@ -221,10 +258,6 @@ while (game == True):
         print("               |   |        |")
         print("               |___|________|")
         time.sleep(2)
-        playerScore = cardScoreChecker(playersHand,2)
-        print("TEST PRINT: Player Score is " + str(playerScore))
-        print("END TEST PRINT")
-        time.sleep(5)
 
         # /// DEALER 2ND CARD ///
         clear()
@@ -247,6 +280,55 @@ while (game == True):
         time.sleep(2)
 
         #TODO: If loop for player holding Ace and ten/jack/queen/king, dealer reveals, if both 21, tie, if not, players wins
+
+        #TEST TO SET PLAYER AS 21 TO TEST VICTORY STUFF
+        playersHand[0][0]=" A"
+        playersHand[1][0]=" K"
+        dealersHand[0][0]=" 7"
+        dealersHand[1][0]=" 7" 
+
+
+        playerScore = cardScoreChecker(playersHand,2)
+        if(playerScore == 21):
+            clear()
+            print("Player hit 21")
+            print(" ___________    ________ ___")
+            print("||||########|  |        |###|")
+            print("||||########|  |" + dealersHand[0][0] + dealersHand[0][1] + "     |###|")
+            print("||||########|  |        |###|")
+            print("||||########|  |        |###|")
+            print("||||########|  |________|###|")
+            print("                ___ ________")
+            print("               |   |        |")
+            print("               |" + playersHand[0][0] + playersHand[0][1] + "|" + playersHand[1][0] + playersHand[1][1] + "     |")
+            print("               |   |        |")
+            print("               |   |        |")
+            print("               |___|________|")
+            time.sleep(5)
+
+            clear()
+            print("Dealer 2nd card revealed")
+            print(" ___________    ___ ________")
+            print("||||########|  |   |        |")
+            print("||||########|  |" + dealersHand[0][0] + dealersHand[0][1] + "|" + dealersHand[1][0] + dealersHand[1][1] + "     |")
+            print("||||########|  |   |        |")
+            print("||||########|  |   |        |")
+            print("||||########|  |___|________|")
+            print("                ___ ________")
+            print("               |   |        |")
+            print("               |" + playersHand[0][0] + playersHand[0][1] + "|" + playersHand[1][0] + playersHand[1][1] + "     |")
+            print("               |   |        |")
+            print("               |   |        |")
+            print("               |___|________|")
+            time.sleep(5)
+            dealerScore = cardScoreChecker(dealersHand,2)
+            
+            #TODO: IF loop for dealer hitting under 17
+
+
+            victoryStateSetter(playerScore,dealerScore)
+            state=1
+            break
 
 
         # //// Actual game starts, ask player if they want to hit or stand ///
