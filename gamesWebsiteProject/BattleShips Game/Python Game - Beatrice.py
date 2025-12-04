@@ -54,7 +54,7 @@ def place_ships(grid):
 def fire(row, col, grid):
     """Handle firing at a cell and return the result."""
     mark = grid[row][col]
-    if mark == 'X' or mark == '-':
+    if mark == 'X' or mark == 'O':
         print("\nYou've already fired at this location. Try somewhere new!")
         return None
     elif mark != '.':
@@ -63,7 +63,7 @@ def fire(row, col, grid):
         return mark
     else:
         print("\n \U0001F30A You missed!")
-        grid[row][col] = '-'
+        grid[row][col] = 'O'
         return False
 
 def print_grid(grid, fog_of_war=True):
@@ -73,7 +73,7 @@ def print_grid(grid, fog_of_war=True):
         if fog_of_war:
             row_display = [
                 'X' if cell == 'X' else
-                '-' if cell == '-' else
+                'O' if cell == 'O' else
                 '.' for cell in row
             ]
         else:
